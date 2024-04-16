@@ -66,7 +66,7 @@ class ImageDataTrain(data.Dataset):
         im_name = self.sal_list[item % self.sal_num].split()[0]
         gt_name = self.sal_list[item % self.sal_num].split()[1]
 
-        sal_image, img_size = load_image(os.path.join(self.sal_root, im_name))
+        sal_image, img_size = load_image(os.path.join(self.sal_root, im_name))  # cv2的resize、通道变到C,H,W
         sal_label = load_mask(os.path.join(self.sal_root, gt_name))
         sal_image, sal_label = cv_random_flip(sal_image, sal_label)
 

@@ -91,10 +91,10 @@ logging.info(
         opt.decay_epoch))
 
 # set loss function
-CE = torch.nn.BCEWithLogitsLoss()
+CE = torch.nn.BCEWithLogitsLoss()  # 0/1, 二分类交叉熵
 ECE = torch.nn.BCELoss()
 step = 0
-writer = SummaryWriter(save_path + 'summary')
+writer = SummaryWriter(save_path + 'summary')  # tensorboardX
 best_mae = 1
 best_epoch = 0
 
@@ -193,7 +193,7 @@ def test(test_loader, model, epoch, save_path):
             gt /= (gt.max() + 1e-8)
             image = image.cuda()
             depth = depth.repeat(1,3,1,1).cuda()
-            res,e = model(image,depth)
+            res, e = model(image, depth)
             res = F.upsample(res, size=gt.shape, mode='bilinear', align_corners=False)
             res = res.sigmoid().data.cpu().numpy().squeeze()
             res = (res - res.min()) / (res.max() - res.min() + 1e-8)

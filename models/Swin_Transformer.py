@@ -687,7 +687,7 @@ class SwinNet(nn.Module):
         out = self.relu(torch.cat((end_sal, edge_feature), dim=1))
         out = self.up4(out)
         sal_out = self.conv64_1(out)
-        return sal_out, up_edge
+        return sal_out, up_edge  # salient map & edge
 
     def load_pre(self, pre_model):
         self.rgb_swin.load_state_dict(torch.load(pre_model)['model'],strict=False)
